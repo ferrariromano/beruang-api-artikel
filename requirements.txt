@@ -1,6 +1,5 @@
 Flask
 pandas
-scikit-learn
 joblib
-numpy
-google-cloud-storage
+scikit-learn
+gunicorn

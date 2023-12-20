@@ -2,16 +2,7 @@ from flask import Flask, request, jsonify
 import pandas as pd
 import joblib
 from sklearn.metrics.pairwise import cosine_similarity
-from google.cloud import storage
-import io
 
-
-
-# Initialize the Flask application
-app = Flask(__name__)
-
-# Load your data
-# Function to read a blob from Cloud Storage into a pandas DataFrame
 # Load your data
 article_data = pd.read_csv('hasil_akhir.csv')
 
@@ -19,6 +10,8 @@ article_data = pd.read_csv('hasil_akhir.csv')
 vectorizer = joblib.load('tfidf_vectorizer.joblib')
 tfidf_matrix = joblib.load('tfidf_matrix.joblib')
 
+# Initialize the Flask application
+app = Flask(__name__)
 
 # Function to generate recommendations
 def get_recommendations(article_index):
