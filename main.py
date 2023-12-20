@@ -12,29 +12,12 @@ app = Flask(__name__)
 
 # Load your data
 # Function to read a blob from Cloud Storage into a pandas DataFrame
-def read_blob_to_dataframe(bucket_name, blob_name):
-    client = storage.Client()
-    bucket = client.bucket(bucket_name)
-    blob = bucket.blob(blob_name)
-    data = blob.download_as_bytes()
-    return pd.read_csv(io.BytesIO(data))
-
-# Function to load a joblib file from Cloud Storage
-def load_joblib_from_blob(bucket_name, blob_name):
-    client = storage.Client()
-    bucket = client.bucket(bucket_name)
-    blob = bucket.blob(blob_name)
-    data = blob.download_as_bytes()
-    return joblib.load(io.BytesIO(data))
-
 # Load your data
-bucket_name = 'data-artikel'
-article_data = read_blob_to_dataframe(bucket_name, 'hasil_akhir.csv')
+article_data = pd.read_csv('hasil_akhir.csv')
 
 # Load the pre-trained TF-IDF vectorizer and matrix
-vectorizer = load_joblib_from_blob(bucket_name, 'tfidf_vectorizer.joblib')
-tfidf_matrix = load_joblib_from_blob(bucket_name, 'tfidf_matrix.joblib')
-
+vectorizer = joblib.load('tfidf_vectorizer.joblib')
+tfidf_matrix = joblib.load('tfidf_matrix.joblib')
 
 
 # Function to generate recommendations
